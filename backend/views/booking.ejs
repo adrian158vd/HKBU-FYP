@@ -1,0 +1,18 @@
+<!-- display email and numTickts of this document-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>All Bookings</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+    <%= booking.email %> , <%= booking.numTickets %>
+    
+    <!-- a form with a button to send delete request to your backend -->
+<form action="/bookings/delete/<%= booking._id %>"  method="post">
+    <button type="submit">Delete</button>
+</form>
+  </body>
+</html>

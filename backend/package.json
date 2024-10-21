@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "lab03",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -8,10 +8,13 @@
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "ejs": "~2.6.1",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
-    "mongodb": "^6.9.0",
-    "morgan": "~1.9.1"
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.1.0",
+    "morgan": "~1.9.1",
+    "passport": "^0.6.0",
+    "passport-http-bearer": "^1.0.1"
   }
 }
