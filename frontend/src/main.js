@@ -10,11 +10,9 @@ import '@oruga-ui/theme-bootstrap/dist/bootstrap.css';
 import '@mdi/font/css/materialdesignicons.min.css';
 
 import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import "bootstrap"
 import VueApexCharts from "vue3-apexcharts";
 
-createApp(App).mount('#app')
 const app = createApp(App)
 
 app.use(router).use(Oruga, bootstrapConfig).use(VueApexCharts)
