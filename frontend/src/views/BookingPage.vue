@@ -49,21 +49,5 @@ import { ref, onMounted } from 'vue'
         ],
       };
     },
-    methods: {
-      goToMovies() {
-        this.$router.push("/movies");
-      },
-      bookMovie(movieId) {
-        this.$router.push({ name: "BookingPage", params: { id: movieId } });
-      },
-    },
-  };
-  </script>
-  
-  <style scoped>
-  /* Optional: Add custom styles for better visuals */
-  .card {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  </style>
+    methods
   
