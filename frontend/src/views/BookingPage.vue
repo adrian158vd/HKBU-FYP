@@ -5,49 +5,56 @@ import { ref, onMounted } from 'vue'
 </script>
 
 <template>
-    <main>
-      <!-- Hero Section -->
-      <div class="container">
-        <div class="bg-light p-5 rounded-lg text-center">
-          <h1 class="display-4">Welcome to MovieBox!</h1>
-          <p class="lead">Discover and book tickets for your favorite movies at a cinema near you!</p>
-          <button class="btn btn-primary btn-lg" @click="goToMovies">Browse Movies</button>
-        </div>
-      </div>
-  
-      <!-- Featured Movies Section -->
-      <section class="mt-5">
-        <div class="container">
-          <h2 class="mb-4">Featured Movies</h2>
-          <div class="row">
-            <!-- Movie Cards -->
-            <div class="col-md-4" v-for="movie in movies" :key="movie.id">
-              <div class="card h-100">
-                <img :src="movie.image" class="card-img-top" :alt="movie.title">
-                <div class="card-body">
-                  <h5 class="card-title">{{ movie.title }}</h5>
-                  <p class="card-text">{{ movie.description }}</p>
-                  <button class="btn btn-primary" @click="bookMovie(movie.id)">Book Now</button>
-                </div>
-              </div>
-            </div>
+    <div class="container mt-5">
+      <h2>Book Tickets</h2>
+      <div v-if="movie">
+        <h4>{{ movie.title }}</h4>
+        <img :src="movie.image" alt="movie poster" class="img-fluid mb-3">
+        <form @submit.prevent="confirmBooking">
+          <div class="mb-3">
+            <label for="name" class="form-label">Your Name</label>
+            <input type="text" id="name" class="form-control" v-model="bookingDetails.name" required>
           </div>
-        </div>
-      </section>
-    </main>
+          <div class="mb-3">
+            <label for="seats" class="form-label">Number of Seats</label>
+            <input type="number" id="seats" class="form-control" v-model="bookingDetails.seats" required>
+          </div>
+          <button type="submit" class="btn btn-success">Confirm Booking</button>
+        </form>
+      </div>
+      <div v-else>
+        <p>Loading movie details...</p>
+      </div>
+    </div>
   </template>
   
   <script>
   export default {
-    name: "HomePage",
+    name: 'BookingPage',
     data() {
       return {
-        movies: [
-          { id: 1, title: "Movie Title 1", description: "Description 1", image: "https://via.placeholder.com/300x150" },
-          { id: 2, title: "Movie Title 2", description: "Description 2", image: "https://via.placeholder.com/300x150" },
-          { id: 3, title: "Movie Title 3", description: "Description 3", image: "https://via.placeholder.com/300x150" },
-        ],
+        movie: null,
+        bookingDetails: {
+          name: '',
+          seats: 1,
+        },
       };
     },
-    methods
+    mounted() {
+      const movieId = this.$route.params.id;
+      const movies = [
+        { id: 1, title: 'Movie Title 1', image: 'https://via.placeholder.com/300x150' },
+        { id: 2, title: 'Movie Title 2', image: 'https://via.placeholder.com/300x150' },
+        { id: 3, title: 'Movie Title 3', image: 'https://via.placeholder.com/300x150' },
+      ];
+      this.movie = movies.find((m) => m.id == movieId);
+    },
+    methods: {
+      confirmBooking() {
+        alert(`Booking confirmed for ${this.bookingDetails.name}. ${this.bookingDetails.seats} seat(s) reserved.`);
+        this.$router.push('/');
+      },
+    },
+  };
+  </script>
   
