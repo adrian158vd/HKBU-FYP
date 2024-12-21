@@ -1,8 +1,33 @@
+
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import axios from 'axios';
 
+const router = useRouter();
+const movies = ref([]);
+
+const fetchMovies = async () => {
+  try {
+    const response = await axios.get('/api/movies');
+    movies.value = response.data;
+  } catch (error) {
+    console.error('Error fetching movies:', error);
+  }
+};
+
+const goToMovies = () => {
+  router.push('/movies');
+};
+
+const bookMovie = (movieId) => {
+  router.push({ name: 'BookingPage', params: { id: movieId } });
+};
+
+onMounted(() => {
+  fetchMovies();
+});
 </script>
-
 
 <template>
   <main>
@@ -21,13 +46,13 @@ import { ref, onMounted } from 'vue'
         <h2 class="mb-4">Featured Movies</h2>
         <div class="row">
           <!-- Movie Cards -->
-          <div class="col-md-4" v-for="movie in movies" :key="movie.id">
+          <div class="col-md-4" v-for="movie in movies" :key="movie._id">
             <div class="card h-100">
               <img :src="movie.image" class="card-img-top" :alt="movie.title">
               <div class="card-body">
                 <h5 class="card-title">{{ movie.title }}</h5>
                 <p class="card-text">{{ movie.description }}</p>
-                <button class="btn btn-primary" @click="bookMovie(movie.id)">Book Now</button>
+                <button class="btn btn-primary" @click="bookMovie(movie._id)">Book Now</button>
               </div>
             </div>
           </div>
@@ -37,37 +62,9 @@ import { ref, onMounted } from 'vue'
   </main>
 </template>
 
-<script>
-export default {
-  name: "HomePage",
-  data() {
-    return {
-      movies: [
-        { id: 1, title: "Movie Title 1", description: "Description 1", image: "https://via.placeholder.com/300x150" },
-        { id: 2, title: "Movie Title 2", description: "Description 2", image: "https://via.placeholder.com/300x150" },
-        { id: 3, title: "Movie Title 3", description: "Description 3", image: "https://via.placeholder.com/300x150" },
-      ],
-    };
-  },
-  methods: {
-    goToMovies() {
-      this.$router.push("/movies");
-    },
-    bookMovie(movieId) {
-      this.$router.push({ name: "BookingPage", params: { id: movieId } });
-    },
-  },
-};
-</script>
-
 <style scoped>
 /* Optional: Add custom styles for better visuals */
 .card {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 </style>
-
-
-
-
-

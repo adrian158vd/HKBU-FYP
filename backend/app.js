@@ -20,7 +20,8 @@ passport.use(new BearerStrategy(
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var filmsRouter = require('./routes/films');
+var moviesRouter = require('./routes/movies');
+var bookingsRouter = require('./routes/bookings');
 
 
 var app = express();
@@ -38,7 +39,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api/users', passport.authenticate('bearer', { session: false }), usersRouter);
-app.use('/api/films', filmsRouter);
+app.use('/api/movies', moviesRouter);
+app.use('/api/bookings', bookingsRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
