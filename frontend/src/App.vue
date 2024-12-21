@@ -25,6 +25,9 @@ const search = ref("");
               <a class="nav-link" href="/movies">Movies</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="/bookings">bookings</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="/about">About Us</a>
             </li>
             <li class="nav-item">

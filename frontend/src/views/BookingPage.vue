@@ -26,39 +26,41 @@
 import axios from 'axios';
 
 export default {
-  name: "BookingPage",
+  name: 'BookingPage',
   data() {
     return {
       movie: null,
       booking: {
-        name: "",
+        name: '',
         seats: 1,
       },
     };
   },
   async created() {
-    const movieId = this.$route.params.id;
+    const movieId = this.$route.params.id; // Fetch movieId from the route
     try {
       const response = await axios.get(`/api/movies/${movieId}`);
-      this.movie = response.data;
+      this.movie = response.data; // Store the fetched movie details
     } catch (error) {
-      console.error("Error fetching movie details:", error);
+      console.error('Error fetching movie details:', error);
     }
   },
   methods: {
     async confirmBooking() {
       try {
-        await axios.post("/api/bookings", {
+        await axios.post('/api/bookings', {
           name: this.booking.name,
           movieId: this.movie._id,
           seats: this.booking.seats,
         });
-        alert("Booking confirmed!");
-        this.$router.push("/");
+        alert('Booking confirmed!');
+        this.$router.push('/');
       } catch (error) {
-        console.error("Error confirming booking:", error);
+        console.error('Error confirming booking:', error);
       }
     },
   },
 };
 </script>
+
+
