@@ -37,30 +37,38 @@ export default {
     };
   },
   async created() {
-    const movieId = this.$route.params.id; // Fetch movieId from the route
+    const movieId = this.$route.params.id;
     try {
       const response = await axios.get(`/api/movies/${movieId}`);
-      this.movie = response.data; // Store the fetched movie details
+      this.movie = response.data;
     } catch (error) {
       console.error('Error fetching movie details:', error);
     }
   },
   methods: {
     async confirmBooking() {
-      try {
-        await axios.post('/api/bookings', {
-          name: this.booking.name,
-          movieId: this.movie._id,
-          seats: this.booking.seats,
-        });
-        alert('Booking confirmed!');
-        this.$router.push('/');
-      } catch (error) {
-        console.error('Error confirming booking:', error);
-      }
+        try {
+            const payload = {
+                name: this.booking.name,
+                movieId: this.movie._id,
+                seats: this.booking.seats,
+            };
+
+            const response = await axios.post('/api/bookings', payload);
+            console.log('Booking API Response:', response.data);
+
+            if (response.status === 201) {
+                alert(`Booking confirmed! Your booking ID is ${response.data.bookingId}`);
+                this.$router.push('/');
+            } else {
+                alert('Failed to confirm booking. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error during booking:', error);
+            alert('An error occurred while confirming the booking.');
+        }
     },
-  },
+},
+
 };
 </script>
-
-
